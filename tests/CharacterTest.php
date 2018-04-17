@@ -10,12 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class Character
 {
+    public $weapons = ['Bow'=>5, 'Sword'=>10, 'Spear'=>20, 'Bazooka'=>50];
+    public $armor = ['Iron'=>10, 'Steel'=>20, 'Platinum'=>50];
     public $health = 100;
     public $damage = 1;
-    
+
     public function Attack(Character $opponent)
     {
-        $opponent->health = ($opponent->health - $this->damage);
+        $opponent->health -= $this->damage;
         return $opponent->health;
     }
 }
