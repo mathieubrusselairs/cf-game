@@ -6,5 +6,7 @@
  * Time: 4:08 PM
  */
 
-include_once('AutoLoader.php');
+namespace App;
+
+include_once(__DIR__ .'/../autoload.php');
 // Register the directory to your include files

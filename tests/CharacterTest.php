@@ -1,43 +1,104 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mathieub
- * Date: 2018/04/17
- * Time: 2:56 PM
- */
+
+namespace App;
+
+include_once(__DIR__.'/../autoload.php');
 
 use PHPUnit\Framework\TestCase;
 
-class Character
-{
-    public $weapons = ['Bow'=>5, 'Sword'=>10, 'Spear'=>20, 'Bazooka'=>50];
-    public $armor = ['Iron'=>10, 'Steel'=>20, 'Platinum'=>50];
-    public $health = 100;
-    public $damage = 1;
-
-    public function Attack(Character $opponent)
-    {
-        $opponent->health -= $this->damage;
-        return $opponent->health;
-    }
-}
-
 class CharacterTest extends TestCase
 {
-    protected $character1;
-    protected $character2;
-    protected $result;
+    /**
+     * @var Character
+     */
+    public $character1;
+    /**
+     * @var
+     */
+    public $character2;
+    /**
+     * @var
+     */
+    public $result;
+    /**
+     * @var
+     */
+    public $weapon;
+    /**
+     * @var
+     */
+    public $armor;
 
+    /**
+     *
+     */
     public function setUp()
     {
-        $this->character1 = new Character();
-        $this->character2 = new Character();
+        $weapon = new Weapon();
+        $armor = new Armor();
+        $this->character1 = new Character($weapon, $armor);
+        $this->character2 = new Character($weapon, $armor);
+
+
     }
 
+    /**
+     *
+     */
     public function testCharacterCanAttackOpponent()
     {
+
         $result = $this->character1->Attack($this->character2);
         $this->assertEquals('99', $result);
+    }
+
+    /**
+     *
+     */
+    public function testCharacterCanDoMoreThanJust1Damage()
+    {
+        $this->character1->Attack($this->character2);
+        $result = $this->character1->Attack($this->character2);
+        $this->assertEquals('98', $result);
+    }
+
+    /**
+     *
+     */
+    public function testCharacterCanEquipWeaponToDoMoreDamage()
+    {
+        $this->character1->weapon = new Weapon("Sword", 50);
+        $result = $this->character1->Attack($this->character2);
+        $this->assertEquals('49', $result);
+
+    }
+
+    public function testCharacterCanEquipArmorToNegotiateDamage()
+    {
+        $this->character1->weapon = new Weapon("Sword", 25);
+        $this->character2->armor = new Armor("Iron", 25);
+        $result = $this->character1->Attack($this->character2);
+        $this->assertEquals('99', $result);
+    }
+
+    public function testCharacterCanDieSuccessfully()
+    {
+        $this->character1->weapon = new Weapon("Sword", 99);
+        $result = $this->character1->Attack($this->character2);
+        $this->assertEquals('0', $result);
+    }
+
+    public function testCharactersHealthCanNotGoLowerThan0()
+    {
+        $this->character1->weapon = new Weapon("Sword", 101);
+        $result = $this->character1->Attack($this->character2);
+        $this->assertEquals('0', $result);
+    }
+
+    public function testCharacterGetsARandomWeapon()
+    {
+        $result = $this->character1->Attack($this->character2);
+        $this->assertEquals('84', $result);
     }
 }
 
