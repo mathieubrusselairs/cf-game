@@ -16,6 +16,10 @@ class Game
     public $armor;
     public $timeLeft;
     public $opponent;
+    public $turnCounter = 0;
+    public $turnsArray = [];
+    public $myTurn;
+
 
     public function __construct(Character $character1, Character $character2)
     {
@@ -33,13 +37,18 @@ class Game
     public function timeLeft()
     {
         $this->timeLeft = time() + 60;
+        if($this->timeLeft <= 0 || $this->character1->Attack($this->opponent) || $this->character2->Attack($this->opponent)){
+            $this->turnCounter += 1;
+        }
     }
 
+    //Gaat voor allebij hetzelfde zijn he godverdekke
     public function turnSwitch()
     {
-        if($this->timeLeft <= 0 || $this->character1->Attack($this->opponent) || $this->character2->Attack($this->opponent)){
-            return
+        if($this->character1 !== $this->opponent){
+            if($this->turnCounter % 2 == 0) {
+                $this->myTurn = true;
+            }
         }
-
     }
 }

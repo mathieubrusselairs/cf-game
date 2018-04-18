@@ -16,10 +16,11 @@ class Character
     public $damage = 1;
     public $weapon;
     public $armor;
+    public $weaponType;
 
     public function __construct(Weapon $weapon = null, Armor $armor = null)
     {
-        $this->weapon = new Weapon();
+        $this->weapon = $this->getRandomWeapon();
         $this->armor = new Armor();
     }
 
@@ -73,24 +74,29 @@ class Character
         $this->weapon = $this->getRandomWeapon();
     }
 
+    public function getWeaponType()
+    {
+        return $this->weapon->getWeaponType();
+    }
+
     public function getRandomWeapon()
     {
         $random = rand(1,5);
         switch($random) {
             case 1 :
-                return new Weapon('Sword', rand(30, 40));
+                return new Weapon('stik and stone to brek a bone', ((rand(0, 1)*10)+rand(0,9)));
                 break;
             case 2 :
-                return new Weapon('Axe', rand(45, 60));
+                return new Weapon('very rusti hatchet', ((rand(1, 2)*10)+rand(0,9)));
                 break;
             case 3 :
-                return new Weapon('Bow', rand(15, 25));
+                return new Weapon('arow shuter', ((rand(2, 3)*10)+rand(0,9)));
                 break;
             case 4 :
-                return new Weapon('Bazooka', rand(75, 95));
+                return new Weapon('week ol piza', ((rand(4, 6)*10)+rand(0,9)));
                 break;
             case 5 :
-                return new Weapon('ruber ciken', rand(15, 15));
+                return new Weapon('stronk ruber chiken', rand(70, 100));
                 break;
         }
     }

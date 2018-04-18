@@ -16,6 +16,7 @@ class GameTest extends TestCase
     public $character1;
     public $character2;
     public $game;
+    public $turns = [];
 
     public function setUp()
     {
@@ -23,12 +24,13 @@ class GameTest extends TestCase
     }
     public function testGameStarts()
     {
-        $this->assertEquals('', );
+        if($this->game->timeLeft <= 60){
+            $this->assertEquals(true, true);
+        } else {
+            $this->assertEquals(false, true);
+        };
+
     }
 
-    public function testTimeRunsOut()
-    {
-        $expectedResult = time()+60;
-        $this->assertEquals($expectedResult, );
-    }
+
 }
