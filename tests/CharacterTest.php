@@ -49,18 +49,19 @@ class CharacterTest extends TestCase
     {
 
         $result = $this->character1->Attack($this->character2);
-        $this->assertEquals('99', $result);
+        $expectedResult = $this->character2->health < 99;
+        $this->assertEquals($expectedResult, $result);
     }
 
     /**
-     *
+     * Test is deprecated (Characters get random weapons)
      */
-    public function testCharacterCanDoMoreThanJust1Damage()
-    {
-        $this->character1->Attack($this->character2);
-        $result = $this->character1->Attack($this->character2);
-        $this->assertEquals('98', $result);
-    }
+//    public function testCharacterCanDoMoreThanJust1Damage()
+//    {
+//        $this->character1->Attack($this->character2);
+//        $result = $this->character1->Attack($this->character2);
+//        $this->assertEquals('98', $result);
+//    }
 
     /**
      *
@@ -100,6 +101,7 @@ class CharacterTest extends TestCase
         $result = $this->character1->Attack($this->character2);
         $this->assertEquals('84', $result);
     }
+
 }
 
 

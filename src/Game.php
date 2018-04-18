@@ -10,8 +10,7 @@ namespace App;
 
 class Game
 {
-    public $character1;
-    public $character2;
+    public $character;
     public $weapon;
     public $armor;
     public $timeLeft;
@@ -19,17 +18,19 @@ class Game
     public $turnCounter = 0;
     public $turnsArray = [];
     public $myTurn;
+    public $characters = [];
 
 
-    public function __construct(Character $character1, Character $character2)
+    public function __construct($characters)
     {
-        $this->character1 = new Character();
-        $character1->getRandomWeapon();
-        $this->character2 = new Character();
-        $character2->getRandomWeapon();
+        foreach($this->characters as $this->character){
+            $this->character = new Character();
+            $this->character->getRandomWeapon();
+        }
+
     }
 
-    public function startGame($character1, $character2)
+    public function startGame($characters)
     {
 
     }
@@ -37,7 +38,7 @@ class Game
     public function timeLeft()
     {
         $this->timeLeft = time() + 60;
-        if($this->timeLeft <= 0 || $this->character1->Attack($this->opponent) || $this->character2->Attack($this->opponent)){
+        if($this->timeLeft <= 0 || $this->character->Attack($this->opponent)){
             $this->turnCounter += 1;
         }
     }
@@ -45,7 +46,7 @@ class Game
     //Gaat voor allebij hetzelfde zijn he godverdekke
     public function turnSwitch()
     {
-        if($this->character1 !== $this->opponent){
+        if($this->character !== $this->opponent){
             if($this->turnCounter % 2 == 0) {
                 $this->myTurn = true;
             }
