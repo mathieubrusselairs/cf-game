@@ -36,8 +36,10 @@ class CharacterTest extends TestCase
     {
         $weapon = new Weapon();
         $armor = new Armor();
-        $this->character1 = new Character($weapon, $armor);
-        $this->character2 = new Character($weapon, $armor);
+        $this->character1 = new Character();
+        $this->character2 = new Character();
+        $characters[] = $this->character1;
+        $characters[] = $this->character2;
 
 
     }
@@ -66,41 +68,31 @@ class CharacterTest extends TestCase
     /**
      *
      */
-    public function testCharacterCanEquipWeaponToDoMoreDamage()
-    {
-        $this->character1->weapon = new Weapon("Sword", 50);
-        $result = $this->character1->Attack($this->character2);
-        $this->assertEquals('49', $result);
 
-    }
 
-    public function testCharacterCanEquipArmorToNegotiateDamage()
+    public function testCharacterCanEquipArmorToNegotiateDamageAndUseWeaponToDealExtraDamage()
     {
         $this->character1->weapon = new Weapon("Sword", 25);
-        $this->character2->armor = new Armor("Iron", 25);
+        $this->character2->armor = new Armor("Iron", 12.5);
         $result = $this->character1->Attack($this->character2);
-        $this->assertEquals('99', $result);
+        $this->assertEquals('76.5', $result);
     }
 
     public function testCharacterCanDieSuccessfully()
     {
         $this->character1->weapon = new Weapon("Sword", 99);
+        $this->character2->armor = new Armor("Iron", 0);
         $result = $this->character1->Attack($this->character2);
         $this->assertEquals('0', $result);
     }
 
     public function testCharactersHealthCanNotGoLowerThan0()
     {
-        $this->character1->weapon = new Weapon("Sword", 101);
+        $this->character1->weapon = new Weapon("Sword", 500);
         $result = $this->character1->Attack($this->character2);
         $this->assertEquals('0', $result);
     }
 
-    public function testCharacterGetsARandomWeapon()
-    {
-        $result = $this->character1->Attack($this->character2);
-        $this->assertEquals('84', $result);
-    }
 
 }
 

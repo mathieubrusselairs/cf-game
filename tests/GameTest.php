@@ -18,12 +18,19 @@ class GameTest extends TestCase
     public $character3;
     public $characters = [];
     public $game;
-    public $turns = [];
+
+
 
     public function setUp()
     {
+        $this->character1 = new Character();
+        $this->character2 = new Character();
+        $this->character3 = new Character();
+        $this->characters[] = $this->character1;
+        $this->characters[] = $this->character2;
+        $this->characters[] = $this->character3;
         $this->game = new Game($this->characters);
-        $this->characters[] = [$this->character1, $this->character2];
+
     }
     public function testGameStarts()
     {
@@ -35,13 +42,16 @@ class GameTest extends TestCase
 
     }
 
-    public function testCanAddMoreThen2PlayersToTheGame()
+    public function testCanAddMoreThan3PlayersToTheGame()
     {
-        $expectedArrayCount = 3;
+        $expectedArrayCount = 4;
         $characterExtra = new Character();
         $this->characters[] = $characterExtra;
-        $result = array_count_values($this->characters[]);
+
+        $result = count($this->characters);
+
         $this->assertEquals($expectedArrayCount, $result);
+
     }
 
 }
