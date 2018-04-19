@@ -13,12 +13,12 @@ class Game implements GameInterface
     public $character;
     public $characters = [];
 
+    public $budget;
 
-    public function __construct($characters)
+    public function __construct(array $characters)
     {
-        foreach($characters as $this->character){
+        foreach ($characters as $this->character) {
             $this->character = new Character();
-            $this->character->getRandomWeapon();
         }
 
     }

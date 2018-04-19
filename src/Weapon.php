@@ -9,7 +9,7 @@
 namespace App;
 
 
-class Weapon
+class Weapon extends AbstractWeapon
 {
     public $weaponType;
     public $weaponDamage;

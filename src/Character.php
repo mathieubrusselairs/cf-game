@@ -10,25 +10,31 @@ namespace App;
 
 
 
-class Character implements PlayerInterface
+class Character extends RandomProvider implements PlayerInterface
 {
+
+    use RandomDeathMessageTrait;
     public $health = 100;
     public $damage = 1;
     public $weapon;
     public $armor;
     public $weaponType;
     public $name;
+    public static $amountOfChars;
+    const CHARACTER_PRICE = 5;
+
 
     public function __construct(Weapon $weapon = null, Armor $armor = null)
     {
         $this->weapon = $this->getRandomWeapon();
         $this->armor = $this->getRandomArmor();
+        self::$amountOfChars++;
     }
 
     /**
      * @return int
      */
-    public function getHealth()
+    public function getHealth() : int
     {
         if($this->health < 0){
 
@@ -51,7 +57,7 @@ class Character implements PlayerInterface
     /**
      * @return int
      */
-    public function getDamage()
+    public function getDamage() : int
     {
         return $this->damage + $this->weapon->getWeaponDamage();
     }
@@ -66,7 +72,7 @@ class Character implements PlayerInterface
 
 
 
-    public function Attack(Character $opponent)
+    public function Attack(Character $opponent) :int
     {
         $opponent->setHealth($opponent->getHealth() - $this->getDamage() + ( $opponent->armor->getDefense() / 5));
         return $opponent->getHealth();
@@ -93,99 +99,16 @@ class Character implements PlayerInterface
         $this->armor = $this->getRandomArmor();
     }
 
-    public function getWeaponType()
+    public function getWeaponType() : string
     {
         return $this->weapon->getWeaponType();
     }
-    public function getArmorType()
+    public function getArmorType() : string
     {
         return $this->armor->getArmorType();
     }
 
-    public function getRandomWeapon()
-    {
-        $random = rand(1,5);
-        switch($random) {
-            case 1 :
-                return new Weapon('Stick and Stone to Break a Bone', rand(10,20));
-                break;
-            case 2 :
-                return new Weapon('Very Rusty Hatchet', rand(20, 40));
-                break;
-            case 3 :
-                return new Weapon('Arrow Shooter', rand(40, 50));
-                break;
-            case 4 :
-                return new Weapon('Half a Pizza Slice', rand(50, 70));
-                break;
-            case 5 :
-                return new Weapon('Strong Rubber Chiken', rand(70, 100));
-                break;
-        }
-    }
 
-    public function getRandomArmor()
-    {
-        $random = rand(1,5);
-        switch($random) {
-            case 1 :
-                return new Armor('Wooden Shield', rand(10,20));
-                break;
-            case 2 :
-                return new Armor('Iron Helmet', rand(20, 40));
-                break;
-            case 3 :
-                return new Armor('a Leaf', rand(40, 50));
-                break;
-            case 4 :
-                return new Armor('5 Weeks Old Pizza', rand(50, 70));
-                break;
-            case 5 :
-                return new Armor('Platinum', rand(70, 100));
-                break;
-        }
-    }
-
-    public function getRandomName()
-    {
-        $random = rand(1,10);
-        switch($random) {
-            case 1 :
-                return 'Jeffrey';
-                break;
-            case 2 :
-                return 'Shwanslapke';
-                break;
-            case 3 :
-                return 'dat chiken';
-                break;
-            case 4 :
-                return 'isaaque';
-                break;
-            case 5 :
-                return 'shtijn';
-                break;
-            case 6 :
-                return 'walter';
-                break;
-            case 6 :
-                return 'jerone';
-                break;
-            case 7 :
-                return 'gijs';
-                break;
-            case 8 :
-                return 'gotye';
-                break;
-            case 9 :
-                return 'waterboye';
-                break;
-            case 10 :
-                return 'aqua';
-                break;
-
-        }
-    }
 
 
 

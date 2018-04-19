@@ -32,15 +32,7 @@ class GameTest extends TestCase
         $this->game = new Game($this->characters);
 
     }
-    public function testGameStarts()
-    {
-        if($this->game->timeLeft <= 60){
-            $this->assertEquals(true, true);
-        } else {
-            $this->assertEquals(false, true);
-        };
 
-    }
 
     public function testCanAddMoreThan3PlayersToTheGame()
     {

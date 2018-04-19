@@ -11,5 +11,6 @@ namespace App;
 
 interface GameInterface
 {
-    public function __construct($characters);
+    public function __construct(array $characters);
+
 }

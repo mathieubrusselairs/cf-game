@@ -23,7 +23,7 @@ class Armor
     /**
      * @return mixed
      */
-    public function getArmorType()
+    public function getArmorType(): string
     {
         return $this->armorType;
     }
