@@ -10,17 +10,59 @@ namespace App;
 
 class Game implements GameInterface
 {
-    public $character;
-    public $characters = [];
 
-    public $budget;
+    public $randomChar;
 
-    public function __construct(array $characters)
+    protected $budget = 55;
+
+    /**
+     * Game constructor.
+     */
+//    public function __construct(CharStrategy $attackerStrategy, CharStrategy $opponentStrategy, WeaponStrategy $a, WeaponStrategy $o)
+//    {
+//    }
+
+
+    public function __construct()
     {
-        foreach ($characters as $this->character) {
-            $this->character = new Character();
-        }
+
 
     }
 
+    public function setUp()
+    {
+
+
+        //print stats for each character in array
+
+
+    }
+
+
+
+            //NOT DEES FUNCTION
+//            if ($randomChar->getHealth() <= 0) {
+//                print($randomChar->getRandomDeathMessage($randomChar) . "\n");
+//            }
+//            if ($character->getHealth() <= 0) {
+//                print("\033[31m" . $character->getRandomDeathMessage($character) . "\033[0m \n");
+//            }
+
+//
+//    public function startnewRound()
+//    {
+//        $this->attacker(ChooseRandomPlayerStrategy::player());
+//        $this->attacker->equipWeapon(GoesWithClassAndIsFreeWeaponStrategy());
+//        $this->chooseOpponent(ChooseNotWeakestPlayerStrategy::player());
+//
+//        $this->fight();
+//
+//        $this->endRound();
+//    }
+//
+//    private function endRound()
+//    {
+//        $this->moveDeadPeopleToGraveyard();
+//        $this->decideIfGameIsOver();
+//    }
 }

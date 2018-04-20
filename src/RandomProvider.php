@@ -22,7 +22,7 @@ class RandomProvider
                 return new Weapon('Very Rusty Hatchet', rand(20, 40));
                 break;
             case 3 :
-                return new Weapon('Arrow Shooter', rand(40, 50));
+                return new Spear('Jesus Piercer', rand(40, 50));
                 break;
             case 4 :
                 return new Weapon('Half a Pizza Slice', rand(50, 70));

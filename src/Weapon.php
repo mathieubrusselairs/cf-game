@@ -9,7 +9,7 @@
 namespace App;
 
 
-class Weapon extends AbstractWeapon
+class Weapon extends AbstractWeapon implements WeaponInterface
 {
     public $weaponType;
     public $weaponDamage;
@@ -51,6 +51,4 @@ class Weapon extends AbstractWeapon
     {
         $this->weaponDamage = $weaponDamage;
     }
-
-
 }

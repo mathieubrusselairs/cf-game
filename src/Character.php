@@ -20,15 +20,15 @@ class Character extends RandomProvider implements PlayerInterface
     public $armor;
     public $weaponType;
     public $name;
+    public $characters;
     public static $amountOfChars;
     const CHARACTER_PRICE = 5;
 
 
-    public function __construct(Weapon $weapon = null, Armor $armor = null)
+    public function __construct(WeaponInterface $weapon = null, Armor $armor = null)
     {
         $this->weapon = $this->getRandomWeapon();
         $this->armor = $this->getRandomArmor();
-        self::$amountOfChars++;
     }
 
     /**
@@ -37,13 +37,10 @@ class Character extends RandomProvider implements PlayerInterface
     public function getHealth() : int
     {
         if($this->health < 0){
-
             return $this->health = 0;
-
-
         }
-            return $this->health;
 
+        return $this->health;
     }
 
     /**
@@ -76,13 +73,13 @@ class Character extends RandomProvider implements PlayerInterface
     {
         $opponent->setHealth($opponent->getHealth() - $this->getDamage() + ( $opponent->armor->getDefense() / 5));
         return $opponent->getHealth();
+
+
     }
-
-
 
     public function setName($name)
     {
-        $this->name = $this->getRandomName() . rand(1,30);
+        $this->name = StaticRandomProvider::generateRandomName();
     }
 
     public function getName()
@@ -107,6 +104,7 @@ class Character extends RandomProvider implements PlayerInterface
     {
         return $this->armor->getArmorType();
     }
+
 
 
 

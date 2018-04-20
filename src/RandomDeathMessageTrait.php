@@ -8,28 +8,29 @@
 
 namespace App;
 
-//DEAD CONTENT
-//
-//DOESNT TWERK
+
 trait RandomDeathMessageTrait
 {
-// Store 3 anonymous functions in an array
 
-    public function getRandomDeathMessage(){
+    public function getRandomDeathMessage(Character $character){
         $deathMessages = array(
-            function() {
-                return print(" has seen the light of day!");
+            function() use ($character) {
+                return $character->getName() . " has seen the light of day!";
             },
-            function() {
-                return print(" closed his eyes for good this time!") ;
+            function() use ($character) {
+                return $character->getName() . " closed his eyes for good this time!" ;
             },
-            function()
+            function() use ($character)
             {
-                return print(" choked on a piece of lego!");
+                return $character->getName() . " choked on a piece of lego!";
+            },
+            function() use ($character)
+            {
+                return $character->getName() . " has been deprecated in Symfony 4.0!";
             });
 
 
-        return $deathMessages[1];
+        return $deathMessage = $deathMessages[rand(0,count($deathMessages)-1)]();
 
     }
 

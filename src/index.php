@@ -2,20 +2,19 @@
 
 namespace App;
 include_once(__DIR__ . '/../autoload.php');
-use RandomDeathMessageTrait;
 //SETUP
 
 //PROJECT STILL NEEDS THESE::
-//- traits
-//- callbacks, anonymous functions, closures
 //- polymorphism
 //
 //- extra points for implementing a design pattern
 //
+//- callbacks, anonymous functions, closures O
 //- constants O
 //- static methods O
 //
 //- Error handling X
+//- traits X
 //- abstract classes X
 //- encapsulation X
 //- type hinting X
@@ -27,106 +26,56 @@ use RandomDeathMessageTrait;
 $budget = 55;
 $turnCounter = 1;
 
-while ($budget > 0) {
-    if ($budget < 0) {
-        $budget = 0;
-    }
-    $characters[] = new Character;
-
-    $budget -= (Character::CHARACTER_PRICE * rand(0, 7));
-    print('Making Characters -- Budget: ' . $budget . "\n");
-
+//$graveyard = new Characters();
+//$spectators = new Characters();
+if($turnCounter >= 2) {
+    $budget = null;
 }
+$characters = new Characters();
+$game = new Game($characters);
+$characters->setUpCharacters();
+$game->setUp();
+$characters->printStats();
 
-foreach ($characters as $character) {
-    $randomName = $character->getName();
 
-    print(" \n");
-    $character->setName(($randomName));
-    print('Character ' . "\033[33m" . $character->getName() . "\033[0m" . ' stats:' . "\n \n");
-    print('    * WeaponType: ' . $character->getWeaponType() . " \n");
-    print('    * Damage: ' . $character->getDamage() . " \n");
-    print('    * Health: ' . $character->getHealth() . " \n");
-    print('    * Armor: ' . $character->getArmorType() . " \n");
-    print('    * Regen: ' . ($character->armor->getDefense() / 5) . " \n");
-
-    print("\n");
-
-}
 print("Total amount of chars in game: \033[35m" . Character::$amountOfChars . "\033[0m \n");
 
-//END SETUP
-
-sleep(3);
 print("\033[36m========== RUMBLE STARTS ========== \n \n\033[0m");
+
+sleep(2);
+
 
 
 for ($i = 60; $i >= 0; $i--) {
-    foreach ($characters as $character) {
-        if ($character->getHealth() <= 0) {
-            print($character->getName() . $character->getRandomDeathMessage() . "\n");
-            print("\n \033[36m========== RUMBLE OVER ========== \n \n\033[0m");
-            exit();
-        }
-
-
+    if(count($characters->characters)<= 1){
+        print("GY:" . $characters->returnGraveyard() . "\n");
+        print("\033[36m========== RUMBLE STARTS ========== \n \n\033[0m");
+        exit();
     }
+
     print("\033[36m-------------ROUND " . $turnCounter . " ------------- \n \n\033[0m");
 
-
-    foreach ($characters as $character) {
-        $randomInteger = rand(1, (sizeOf($characters) - 1));
-        $randomChar = $characters[$randomInteger];
-
-        if ($randomChar->getHealth() <= 0) {
-            print($randomChar->getName() . $character->getRandomDeathMessage() . "\n");
-            print("\n \033[36m========== RUMBLE OVER ========== \n \n\033[0m");
-            exit();
-        }
-        if ($character->getHealth() <= 0) {
-            print("\033[31m" . $character->getName() .$character->getRandomDeathMessage() . "\033[0m \n");
-            print("\n \033[36m========== RUMBLE OVER ========== \n \n\033[0m");
-            exit();
-        }
-
-        print ("\n");
-        print("*-*-*-*-*-*- TURN OF '" . $character->getName() . "' -*-*-*-*-*-* \n");
-
-
-        if ($randomChar == $character) {
-            print($character->getName() . " tried attacking himself! Silly goose... \n");
-            print($randomChar->getName() . " has \033[31m" . $randomChar->getHealth() . "hp \033[0m left!" . "\n");
-        } else {
-            if ($character->getHealth() <= 0) {
-                print('Dead characters cannot attack! Nice try!' . "\n");
-            } else {
-                if ($randomChar->getHealth() <= 0) {
-                    print($character->getName() . ' tried attacking ' . $randomChar->getName() . "... \n");
-                    print('... But ' . $randomChar->getName() . ' is already dead!' . "\n");
-                } else {
-                    $character->Attack($randomChar);
-                    print($character->getName() . " has attacked " . $randomChar->getName() . ' with ' . "\033[33m" . $character->getWeaponType() . "\033[0m" . ' for ' . $character->getDamage() . " damage \n");
-                    print($randomChar->getName() . " has \033[31m" . $randomChar->getHealth() . "hp \033[0m left! " . "\n");
-                }
-
-            }
-
-        }
-        if ($randomChar->getHealth() <= 0) {
-            error_log("\033[31m Was not able to attack random character! Target might be dead, or non-existent. \033[0m");
-            error_get_last();
-        }
-
-
-        sleep(2);
-        print("\n");
-
-
-    }
-
+    $characters->attackRandomTarget();
+    print ("\n");
+    $characters->generateRandomDeathMessageForEveryDeadCharacter();
+    $characters->remove();
+    print("\n");
     sleep(2);
+
     $turnCounter++;
 }
+
+
+
+//$game = new Game();
+//
+//$game->setCharacter();
+//$game->setOpponent();
+//$game->attack();
+//$game->output();
+//$game = new Game(AttackerIsAlwaysTheWeakest, OpponentIsAlwaysLastAttacker, FreeWeaponForCharClass, FreeStrongestWeapon);
+//$game->run();
+
 
 
 //Important jeroen stuff
