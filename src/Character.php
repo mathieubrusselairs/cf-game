@@ -58,7 +58,7 @@ class Character extends RandomProvider implements PlayerInterface
      */
     public function setHealth($health)
     {
-            $this->health = $health;
+        $this->health = $health;
     }
 
     /**
@@ -79,7 +79,7 @@ class Character extends RandomProvider implements PlayerInterface
 
 
 
-    public function Attack(Character $opponent) :int
+    public function Attack(Character $opponent = null) :int
     {
         $opponent->setHealth($opponent->getHealth() - $this->getDamage() + ( $opponent->armor->getDefense() / 5));
         return $opponent->getHealth();

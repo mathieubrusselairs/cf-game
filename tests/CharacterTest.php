@@ -30,6 +30,9 @@ class CharacterTest extends TestCase
     public $armor;
     public $index;
 
+    /**
+     * @var Characters
+     */
     public $characters;
     public $graveyard;
 
@@ -115,12 +118,16 @@ class CharacterTest extends TestCase
         $this->assertEquals($result, 1);
     }
 
+    /**
+     * @group failing
+     */
     public function testCharacterInTheMiddleOfTheArrayAlsoGetsRemovedByTheRemoveFunction()
     {
+        /** @var Character $character */
         $character = $this->characters->characters[1];
         $character->setHealth(0);
         $this->characters->remove();
-        $result = count($this->characters->deadGuyArray);
+        $result = count($this->characters->graveyard);
         $this->assertEquals($result, 1);
     }
 }

@@ -42,12 +42,11 @@ print("Total amount of chars in game: \033[35m" . Character::$amountOfChars . "\
 
 print("\033[36m========== RUMBLE STARTS ========== \n \n\033[0m");
 
-sleep(2);
+sleep(1);
 
 
 
 for ($i = 60; $i >= 0; $i--) {
-    $characters->remove();
 
 
     print("\033[36m-------------ROUND " . $turnCounter . " ------------- \n \n\033[0m");
@@ -56,12 +55,13 @@ for ($i = 60; $i >= 0; $i--) {
     print ("\n");
     $characters->generateRandomDeathMessageForEveryDeadCharacter();
     print("\n");
+    $characters->remove();
     if(count($characters->characters) == 1 ){
-        print("GY:" . $characters->returnGraveyard() . "\n");
+        print($characters->returnGraveyard() . "\n");
         print("\033[36m========== RUMBLE STOPS ========== \n \n\033[0m");
         exit();
     }
-    sleep(2);
+    sleep(1);
 
     $turnCounter++;
 }
