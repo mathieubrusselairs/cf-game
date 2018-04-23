@@ -47,19 +47,20 @@ sleep(2);
 
 
 for ($i = 60; $i >= 0; $i--) {
-    if(count($characters->characters)<= 1){
-        print("GY:" . $characters->returnGraveyard() . "\n");
-        print("\033[36m========== RUMBLE STARTS ========== \n \n\033[0m");
-        exit();
-    }
+    $characters->remove();
+
 
     print("\033[36m-------------ROUND " . $turnCounter . " ------------- \n \n\033[0m");
 
     $characters->attackRandomTarget();
     print ("\n");
     $characters->generateRandomDeathMessageForEveryDeadCharacter();
-    $characters->remove();
     print("\n");
+    if(count($characters->characters) == 1 ){
+        print("GY:" . $characters->returnGraveyard() . "\n");
+        print("\033[36m========== RUMBLE STOPS ========== \n \n\033[0m");
+        exit();
+    }
     sleep(2);
 
     $turnCounter++;

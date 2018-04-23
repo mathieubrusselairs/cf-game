@@ -27,8 +27,18 @@ class Character extends RandomProvider implements PlayerInterface
 
     public function __construct(WeaponInterface $weapon = null, Armor $armor = null)
     {
-        $this->weapon = $this->getRandomWeapon();
-        $this->armor = $this->getRandomArmor();
+        if(isset($weapon)){
+            $this->weapon = $weapon;
+        } else {
+            $this->weapon = $this->getRandomWeapon();
+        }
+        if(isset($armor)){
+            $this->armor = $armor;
+        } else {
+            $this->armor = $this->getRandomArmor();
+        }
+
+
     }
 
     /**

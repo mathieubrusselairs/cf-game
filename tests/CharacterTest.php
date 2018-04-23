@@ -28,6 +28,10 @@ class CharacterTest extends TestCase
      * @var
      */
     public $armor;
+    public $index;
+
+    public $characters;
+    public $graveyard;
 
     /**
      *
@@ -38,9 +42,8 @@ class CharacterTest extends TestCase
         $armor = new Armor();
         $this->character1 = new Character();
         $this->character2 = new Character();
-        $characters[] = $this->character1;
-        $characters[] = $this->character2;
-
+        $this->characters = new Characters();
+        $this->characters->setUpCharacters();
 
     }
 
@@ -72,9 +75,9 @@ class CharacterTest extends TestCase
 
     public function testCharacterCanEquipArmorToNegotiateDamageAndUseWeaponToDealExtraDamage()
     {
-        $this->character1->weapon = new Weapon("Sword", 25);
-        $this->character2->armor = new Armor("Iron", 12.5);
-        $result = $this->character1->Attack($this->character2);
+        $this->characters->characters[0]->weapon = new Weapon("Sword", 25);
+        $this->characters->characters[1]->armor = new Armor("Iron", 12.5);
+        $result = $this->characters->characters[0]->Attack($this->characters->characters[1]);
         $this->assertEquals('76.5', $result);
     }
 
@@ -93,7 +96,33 @@ class CharacterTest extends TestCase
         $this->assertEquals('0', $result);
     }
 
+    public function testCharacterGetsRemovedAndPushedToGraveyard()
+    {
+        $character = $this->characters->characters[0];
+        $character->setHealth(0);
+        array_push($this->characters->graveyard, $character);
+        array_splice($this->characters->characters, 0);
+        $result = count($this->characters->graveyard);
 
+        $this->assertEquals($result, 1);
+    }
+    public function testCharacterGetsRemovedAndPushedToGraveyardByTheRemoveFunction()
+    {
+        $character = $this->characters->characters[0];
+        $character->setHealth(0);
+        $this->characters->remove();
+        $result = count($this->characters->deadGuyArray);
+        $this->assertEquals($result, 1);
+    }
+
+    public function testCharacterInTheMiddleOfTheArrayAlsoGetsRemovedByTheRemoveFunction()
+    {
+        $character = $this->characters->characters[1];
+        $character->setHealth(0);
+        $this->characters->remove();
+        $result = count($this->characters->deadGuyArray);
+        $this->assertEquals($result, 1);
+    }
 }
 
 
