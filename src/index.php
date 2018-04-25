@@ -23,30 +23,59 @@ use RandomDeathMessageTrait;
 //- interfaces X
 //- namespaces & autoloading X
 
+//Weapon -> singleton?
+
 
 $budget = 55;
 $turnCounter = 1;
+$characterFactory = new CharacterFactory();
+$characters = array();
+
+//
+//$spectators = function($character) {return $character instanceof Spectator;};
+//
+//$allFighters = filter($characters, $isFighter, $makesCoffee);
+
+//function filter(array $characters, ...callable $somecrazyCheck) : array
+//{
+//    $fighters = array();
+//
+//    foreach($characters as $character){
+//        if($somecrazyCheck($character)) {
+//            $fighters[] = $character;
+//        }
+//    }
+//
+//    return $fighters;
+//}
 
 while ($budget > 0) {
     if ($budget < 0) {
         $budget = 0;
     }
-    $characters[] = new Character;
+//    $characters[] = new Character();
+    $characters[] = $characterFactory->getCharacterType(rand(0,1));
 
     $budget -= (Character::CHARACTER_PRICE * rand(0, 7));
     print('Making Characters -- Budget: ' . $budget . "\n");
 
 }
+$fighters = array();
+$spectators = array();
+$isFighter = function($character) {return $character instanceof Character;};
+$isSpectator = function($character) {return $character instanceof Spectator;};
+$fighters =  array_filter($characters, $isFighter);
+$spectators =  array_filter($characters, $isSpectator);
 
-foreach ($characters as $character) {
+foreach ($fighters as $character) {
     $randomName = $character->getName();
 
     print(" \n");
     $character->setName(($randomName));
     print('Character ' . "\033[33m" . $character->getName() . "\033[0m" . ' stats:' . "\n \n");
-    print('    * WeaponType: ' . $character->getWeaponType() . " \n");
     print('    * Damage: ' . $character->getDamage() . " \n");
     print('    * Health: ' . $character->getHealth() . " \n");
+    print('    * WeaponType: ' . $character->getWeaponType() . " \n");
     print('    * Armor: ' . $character->getArmorType() . " \n");
     print('    * Regen: ' . ($character->armor->getDefense() / 5) . " \n");
 
@@ -55,6 +84,13 @@ foreach ($characters as $character) {
 }
 print("Total amount of chars in game: \033[35m" . Character::$amountOfChars . "\033[0m \n");
 
+foreach($spectators as $spectator)
+{
+    print($spectator->getName() . " is watching you! \n");
+}
+
+
+
 //END SETUP
 
 sleep(3);
@@ -62,7 +98,7 @@ print("\033[36m========== RUMBLE STARTS ========== \n \n\033[0m");
 
 
 for ($i = 60; $i >= 0; $i--) {
-    foreach ($characters as $character) {
+    foreach ($fighters as $character) {
         if ($character->getHealth() <= 0) {
             print($character->getName() . $character->getRandomDeathMessage() . "\n");
             print("\n \033[36m========== RUMBLE OVER ========== \n \n\033[0m");
@@ -73,10 +109,16 @@ for ($i = 60; $i >= 0; $i--) {
     }
     print("\033[36m-------------ROUND " . $turnCounter . " ------------- \n \n\033[0m");
 
-
-    foreach ($characters as $character) {
-        $randomInteger = rand(1, (sizeOf($characters) - 1));
-        $randomChar = $characters[$randomInteger];
+if(count($fighters) <= 1){
+    foreach($fighters as $fighter)
+    {
+        print($fighter->getName() . " has won the battle! Because he was the only one here... \n");
+        exit();
+    }
+}
+    foreach ($fighters as $character) {
+        $randomInteger = rand(1, (count($fighters) - 1));
+        $randomChar = $fighters[$randomInteger];
 
         if ($randomChar->getHealth() <= 0) {
             print($randomChar->getName() . $character->getRandomDeathMessage() . "\n");

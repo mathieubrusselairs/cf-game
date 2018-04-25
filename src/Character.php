@@ -9,8 +9,7 @@
 namespace App;
 
 
-
-class Character extends RandomProvider implements PlayerInterface
+class Character extends BaseChar
 {
 
     use RandomDeathMessageTrait;
@@ -22,12 +21,13 @@ class Character extends RandomProvider implements PlayerInterface
     public $name;
     public static $amountOfChars;
     const CHARACTER_PRICE = 5;
+    const CHARACTER_TYPE = 0;
 
 
     public function __construct(Weapon $weapon = null, Armor $armor = null)
     {
-        $this->weapon = $this->getRandomWeapon();
-        $this->armor = $this->getRandomArmor();
+        $this->weapon = RandomProvider::getRandomWeapon();
+        $this->armor = RandomProvider::getRandomArmor();
         self::$amountOfChars++;
     }
 
@@ -72,17 +72,13 @@ class Character extends RandomProvider implements PlayerInterface
 
 
 
-    public function Attack(Character $opponent) :int
-    {
-        $opponent->setHealth($opponent->getHealth() - $this->getDamage() + ( $opponent->armor->getDefense() / 5));
-        return $opponent->getHealth();
-    }
+
 
 
 
     public function setName($name)
     {
-        $this->name = $this->getRandomName() . rand(1,30);
+        $this->name = RandomProvider::getRandomName() . rand(1,30);
     }
 
     public function getName()
@@ -92,11 +88,11 @@ class Character extends RandomProvider implements PlayerInterface
 
     public function setRandomWeapon()
     {
-        $this->weapon = $this->getRandomWeapon();
+        $this->weapon = RandomProvider::getRandomWeapon();
     }
     public function setRandomArmor()
     {
-        $this->armor = $this->getRandomArmor();
+        $this->armor = RandomProvider::getRandomArmor();
     }
 
     public function getWeaponType() : string

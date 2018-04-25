@@ -11,7 +11,7 @@ namespace App;
 
 class RandomProvider
 {
-    public function getRandomWeapon()
+    public static function getRandomWeapon()
     {
         $random = rand(1,5);
         switch($random) {
@@ -33,7 +33,7 @@ class RandomProvider
         }
     }
 
-    public function getRandomArmor()
+    public static function getRandomArmor()
     {
         $random = rand(1,5);
         switch($random) {
@@ -55,7 +55,7 @@ class RandomProvider
         }
     }
 
-    public function getRandomName()
+    public static function getRandomName()
     {
         $random = rand(1,10);
         switch($random) {
