@@ -68,10 +68,17 @@ $fighters =  array_filter($characters, $isFighter);
 $spectators =  array_filter($characters, $isSpectator);
 
 foreach ($fighters as $character) {
-    $randomName = $character->getName();
+    $randomName = RandomProvider::getRandomName();
+    $character->setName(($randomName));
+    $decorator = new CharacterDecorator($character->name);
+    $decorator->setDecoratedName();
+    $decoratedName = $decorator->getDecoratedName();
+    $character->setName($decoratedName);
+
+
+
 
     print(" \n");
-    $character->setName(($randomName));
     print('Character ' . "\033[33m" . $character->getName() . "\033[0m" . ' stats:' . "\n \n");
     print('    * Damage: ' . $character->getDamage() . " \n");
     print('    * Health: ' . $character->getHealth() . " \n");
@@ -116,8 +123,10 @@ if(count($fighters) <= 1){
         exit();
     }
 }
+
+if(null == $fighters) { print("NO FIGHTERS!? What a shame... \n");exit(); }
     foreach ($fighters as $character) {
-        $randomInteger = rand(1, (count($fighters) - 1));
+        $randomInteger = rand(0, (count($fighters) - 1));
         $randomChar = $fighters[$randomInteger];
 
         if ($randomChar->getHealth() <= 0) {
