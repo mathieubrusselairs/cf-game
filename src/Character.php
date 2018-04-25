@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mathieub
- * Date: 2018/04/17
- * Time: 2:56 PM
- */
+//belangrijk
+declare(strict_types=1);
+
 
 namespace App;
 
@@ -12,18 +9,52 @@ namespace App;
 
 class Character extends RandomProvider implements PlayerInterface
 {
+    //alle properties hier private
 
     use RandomDeathMessageTrait;
+    /**
+     * @var int
+     */
     public $health = 100;
+    /**
+     * @var int
+     */
     public $damage = 1;
+    /**
+     * @var WeaponInterface
+     */
     public $weapon;
+    /**
+     * @var Armor
+     */
     public $armor;
+    /**
+     * @var string
+     */
     public $weaponType;
+    /**
+     * @var string
+     */
     public $name;
+    /**
+     * @var array
+     */
     public $characters;
-    public static $amountOfChars;
-    const CHARACTER_PRICE = 5;
+    /**
+     * @var int
+     */
+    private static $amountOfChars;
 
+    /**
+     * @return int
+     */
+    const CHARACTER_PRICE = 5;
+    public static function getAmountOfChars(): int
+    {
+        return self::$amountOfChars;
+    }
+
+    //
 
     public function __construct(WeaponInterface $weapon = null, Armor $armor = null)
     {
@@ -38,7 +69,7 @@ class Character extends RandomProvider implements PlayerInterface
             $this->armor = $this->getRandomArmor();
         }
 
-
+        self::$amountOfChars++;
     }
 
     /**
@@ -52,11 +83,11 @@ class Character extends RandomProvider implements PlayerInterface
 
         return $this->health;
     }
-
+        //void typehint
     /**
      * @param int $health
      */
-    public function setHealth($health)
+    public function setHealth(int $health) : void
     {
         $this->health = $health;
     }
@@ -72,7 +103,7 @@ class Character extends RandomProvider implements PlayerInterface
     /**
      * @param int $damage
      */
-    public function setDamage($damage)
+    public function setDamage($damage) : int
     {
         $this->damage = $damage;
     }

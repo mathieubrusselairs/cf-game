@@ -11,6 +11,8 @@ namespace App;
 
 class RandomProvider
 {
+    //statics van
+    //maken van interface
     public function getRandomWeapon()
     {
         $random = rand(1,5);

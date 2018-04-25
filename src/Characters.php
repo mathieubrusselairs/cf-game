@@ -7,7 +7,7 @@
  */
 
 namespace App;
-
+//DOCUMENTATIE NODIG
 
 class Characters
 {
@@ -26,7 +26,7 @@ class Characters
             }
             $character = new Character();
             array_push($this->characters, $character);
-            Character::$amountOfChars++;
+//            Character::$amountOfChars++;
             $this->budget -= (Character::CHARACTER_PRICE * rand(0, 7));
             print('Making Characters -- Budget: ' . $this->budget . "\n");
         }

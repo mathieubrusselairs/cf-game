@@ -38,7 +38,7 @@ $game->setUp();
 $characters->printStats();
 
 
-print("Total amount of chars in game: \033[35m" . Character::$amountOfChars . "\033[0m \n");
+print("Total amount of chars in game: \033[35m" . Character::getAmountOfChars() . "\033[0m \n");
 
 print("\033[36m========== RUMBLE STARTS ========== \n \n\033[0m");
 

@@ -12,7 +12,7 @@ namespace App;
 interface WeaponInterface
 {
     public function getWeaponType();
-    public function setWeaponType($weapon);
+    public function setWeaponType(WeaponType $weaponType) : void;
     public function getWeaponDamage();
     public function setWeaponDamage($weapon);
 }

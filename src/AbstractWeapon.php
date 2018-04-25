@@ -13,6 +13,7 @@ abstract class AbstractWeapon
 {
 
     //Volledige functionaliteit -> indien Weapon.php ooit moest veranderen, heb ik
+    //
     public $weapon;
     public $weaponType;
     public $weaponDamage;

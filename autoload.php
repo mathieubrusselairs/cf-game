@@ -1,13 +1,17 @@
 <?php
 
+
+
 $map = [
   "App\\" => "src",
 ];
 
-//class_name = App\Character;
-spl_autoload_register(function ($class_name) use ($map) {
-        $namespaceMatches = [];
 
+
+
+//class_name = App\Character;
+spl_autoload_register(function ($class_name){
+        $namespaceMatches = [];
         //["0" => 'appclass']
         preg_match('/(.)*\\\/', $class_name, $namespaceMatches);
 
